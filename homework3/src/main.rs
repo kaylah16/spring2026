@@ -50,7 +50,7 @@ fn load_books(filename: &str) -> Vec<Book> {
             // use .parse()
         let year = info[2].parse::<u16>();
         
-        //push to new vector as a struct
+        //push to new vector as a struct (year needs unwrap)
         books.push(Book {title: title.to_string(), author: author.to_string(), year: year.unwrap()});
     }
     //return book vector 
