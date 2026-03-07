@@ -1,3 +1,5 @@
+//added more comments to remember what everything means
+
 // ------- Temperature Converter ---------
 fn assn1(){
     const FREEZING_POINT :f64 = 32.0; //constant of freezing point

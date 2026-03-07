@@ -1,5 +1,7 @@
+// added more comments to remember what i did
 fn most_frequent_word(text: &str) -> (String, usize) {
     let words: Vec<&str> = text.split_whitespace().collect(); //text separated to words and inserted to a vector
+    //create variables that are being returned 
     let mut max_count: usize = 0;
     let mut max_word: &str = "";
     
@@ -27,7 +29,8 @@ fn most_frequent_word(text: &str) -> (String, usize) {
             max_word = current_word;
         }
     }
-    
+
+    // change to a string
     (max_word.to_string(), max_count) // return tuple
 }
 
