@@ -43,15 +43,15 @@ fn load_books(filename: &str) -> Vec<Book> {
         let info: Vec<&str> = book.split(',').collect();
 
         //title and author needs to be strings (doesn't need unwrap())
-        let title = info[0].to_string();
-        let author = info[1].to_string();
+        let title = info[0];
+        let author = info[1];
 
          //convert year to u16 as it was converted to a string
             // use .parse()
-        let year = info[2].parse::<u16>().unwrap();
+        let year = info[2].parse::<u16>();
         
         //push to new vector as a struct
-        books.push(Book {title, author, year});
+        books.push(Book {title: title.to_string(), author: author.to_string(), year: year.unwrap()});
     }
     //return book vector 
         // title, author, year separated when it printed in main
