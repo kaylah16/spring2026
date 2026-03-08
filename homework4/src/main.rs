@@ -169,5 +169,6 @@ fn main() {
     notes:
     - had issues with how i want it to look when it prints w/ user input
     - why is user input more complex than other languages
-    - so many print lines
+    - tried error handling
+    - so many print lines (T^T)
 */
