@@ -15,21 +15,21 @@ fn perform_operation(operation: FileOperation) {
     // use match to make operation decision
     match operation {
         //1
-        FileOperation::List(directory_path) => {
+        FileOperation::List(directory_path) => { //string is directory path
             let output = Command::new("ls").arg(directory_path).status().expect("Failed to execute ls");
             if !output.success() { //error handling
                 println!("Error: could not list path");
             }
         }
         //2
-        FileOperation::Display(file_path) => { 
+        FileOperation::Display(file_path) => { //strin is file path
             let output = Command::new("cat").arg(file_path).status().expect("Failed to execute cat");
             if !output.success() { //error handling
                 println!("Error: could not list path");
             }
         }
         //3
-        FileOperation::Create(file_path, content) => {
+        FileOperation::Create(file_path, content) => {//string 1 is file path, string 2 is content
             let command = format!("echo '{}' > {}", content, file_path);
             let output = Command::new("sh").arg("-c").arg(command).status().expect("Failed to create file");
             if !output.success() { //error handling
@@ -37,14 +37,14 @@ fn perform_operation(operation: FileOperation) {
             }
         }
         //4
-        FileOperation::Remove(file_path) => {
+        FileOperation::Remove(file_path) => { //string is file path
             let output = Command::new("rm").arg(file_path).status().expect("Failed to remove file");
             if !output.success() { //error handling
                 println!("Error: could not list path");
             }
         }
         //5
-        FileOperation::Pwd => {
+        FileOperation::Pwd => { //no argument needed
             let output = Command::new("pwd").status().expect("Failed to execute pwd");
             if !output.success() { //error handling
                 println!("Error: could not list path");
@@ -170,5 +170,6 @@ fn main() {
     - had issues with how i want it to look when it prints w/ user input
     - why is user input more complex than other languages
     - tried error handling
+    - used module 4 to get examples
     - so many print lines (T^T)
 */
