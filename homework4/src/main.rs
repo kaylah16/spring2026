@@ -57,7 +57,7 @@ fn main() {
     // menu for user option (use match case) 
 
     println!("Welcome to the File Operations Program :)");
-
+    print!("");
     //loop through menu
     loop {
         //Print menu
