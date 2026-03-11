@@ -32,12 +32,12 @@ impl BankAccount {
             println!("Given amount is greater than current balance, ignored");
             return;
         }
-        else if amount <= 0.0 {
+        else if amount <= 0.0 { //could be in one if statement, wanted different output
             println!("Given amount is negative, ignored");
             return;
         }
         //if amount < self.balance {
-            self.balance -= amount;
+        self.balance -= amount;
         
     }
 

@@ -19,59 +19,59 @@ fn main() {
     */
     //create new account
     let mut account = BankAccount::new(100.50);
-    println!("New account balance: {:?}", account);
+    println!("New account balance: ${:?}", account);
 
     //deposit to account
     let depo = 74.5;
-    println!("Amount depositing: {}", depo);
+    println!("Amount depositing: ${}", depo);
     account.deposit(depo);
-    println!("Updated balance after deposit: {:?}", account.balance());
+    println!("Updated balance after deposit: ${:?}", account.balance());
 
     //withdraw from account
     let withdraw_amount = 55.0;
-    println!("Amount withdrawing: {}", withdraw_amount);
+    println!("Amount withdrawing: ${}", withdraw_amount);
     account.withdraw(withdraw_amount);
-    println!("Updated balance after withdraw: {:?}", account.balance());
+    println!("Updated balance after withdraw: ${:?}", account.balance());
 
     println!(""); //spacer
 
     //check balance after deposit & withdraw
-    println!("Current balance: {:?}", account.balance());
+    println!("Current balance: ${:?}", account.balance());
     
     println!(""); //spacer
     
     //deposit negative amount
     let neg_depo = -4.5;
-    println!("Amount depositing: {}", neg_depo);
+    println!("Amount depositing: ${}", neg_depo);
     account.deposit(neg_depo);
-    println!("Updated balance after deposit: {:?}", account.balance());
+    println!("Updated balance after deposit: ${:?}", account.balance());
 
     //withdraw negative amount
     let neg_withdraw_amount = -5.0;
-    println!("Amount withdrawing: {}", neg_withdraw_amount);
+    println!("Amount withdrawing: ${}", neg_withdraw_amount);
     account.withdraw(neg_withdraw_amount);
-    println!("Updated balance after withdraw: {:?}", account.balance());
+    println!("Updated balance after withdraw: ${:?}", account.balance());
 
     println!(""); //spacer
     //print current balance
-    println!("Current balance: {:?}", account.balance());
+    println!("Current balance: ${:?}", account.balance());
 
     println!(""); //spacer
 
     //withdraw full balance
     let full_balance:f64 = account.balance();
-    println!("Amount withdrawing: {}", full_balance);
+    println!("Amount withdrawing: ${}", full_balance);
     account.withdraw(full_balance);
-    println!("updated balance: {:?}", account.balance());
+    println!("updated balance: ${:?}", account.balance());
 
     println!(""); //spacer
 
     //withdraw from empty balance
     let withdraw_amount = 1.5;
-    println!("Amount withdrawing: {}", withdraw_amount);
+    println!("Amount withdrawing: ${}", withdraw_amount);
     account.withdraw(withdraw_amount);
     //println!("Updated balance after withdraw: {:?}", account.balance());
 
-    println!("Current balance: {:?}", account.balance());
+    println!("Current balance: ${:?}", account.balance());
     
 }
