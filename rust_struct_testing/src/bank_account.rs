@@ -13,7 +13,6 @@ impl BankAccount {
     pub fn deposit(&mut self, amount: f64) {
         // increase balance
             //ignore if given amount is negative
-        //let mut update_amount = 0; //updated balance
         //amount is money recieved
 
         if amount <= 0.0 { //if amount is negative, don't update
@@ -55,33 +54,42 @@ mod tests {
     #[test]
     fn test_new_account() {
         // Write a test for creating a new account
-        BankAccount::new(100.5);
+        BankAccount::new(100.5); //create new account
     }
 
     #[test]
     fn test_deposit() {
-        // Write a test for depositing money
+        // deposit to account
         let mut account = BankAccount::new(100.5);
         let deposit_amount = 5.5;
         account.deposit(deposit_amount);
         assert_eq!(account.balance(), 106.0);
 
+        // float comparison
+        let expected_amount = 106.0;
+        let epsilon:f64 = 1e-10;
+        assert!((account.balance() - expected_amount).abs() < epsilon);
+
     }
 
     #[test]
     fn test_withdraw() {
-        // Write a test for withdrawing money
+        // withdraw from account
         let mut account = BankAccount::new(100.5);
         let withdraw_amount = 5.5;
         account.withdraw(withdraw_amount);
         assert_eq!(account.balance(), 95.0);
+
+        let expected_amount = 95.0;
+        let epsilon:f64 = 1e-10;
+        assert!((account.balance() - expected_amount).abs() < epsilon);
     }
 
     // Add more tests here
     
     #[test]
     fn test_check_balance() {
-        //check what the current balance is
+        //check balance
         let mut account = BankAccount::new(100.5);
 
         let add = 6.35;
@@ -92,7 +100,7 @@ mod tests {
 
     #[test]
     fn test_negative_deposit() {
-        // Write a test for depositing money
+        // negative deposit test
         let mut account = BankAccount::new(100.5);
         let deposit_amount = -10.5;
         account.deposit(deposit_amount);
@@ -101,7 +109,7 @@ mod tests {
 
     #[test]
     fn test_negative_withdraw() {
-        // Write a test for withdrawing money
+        // negative withdrawing test
         let mut account = BankAccount::new(100.5);
         let withdraw_amount = -25.5;
         account.withdraw(withdraw_amount);
@@ -109,7 +117,7 @@ mod tests {
 
     #[test]
     fn test_past_withdraw() {
-        // Write a test for withdrawing money
+        // overdraft test
         let mut account = BankAccount::new(100.5);
         let withdraw_amount = 205.5;
         account.withdraw(withdraw_amount);
