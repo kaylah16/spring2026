@@ -137,17 +137,13 @@ fn main() {
     // TODO: Create 2 producer threads
     let mut prod_handle = vec![]; //create vector to insert producers
 
-    let tx1 = tx.clone();
-    let handle1 = thread::spawn(move || {
-        producer(1, tx1, ITEM_COUNT / 2);
-    });
-    prod_handle.push(handle1);    
-
-    let tx2 = tx.clone();
-    let handle2 = thread::spawn(move || {
-        producer(2, tx2, ITEM_COUNT - (ITEM_COUNT / 2));
-    });
-    prod_handle.push(handle2);   
+     for i in 0..2 {
+        let tx_clone = tx.clone();
+        let handle = thread::spawn(move || {
+            producer(i, tx_clone, ITEM_COUNT);
+        });
+        prod_handle.push(handle);
+    }
     
     
     // TODO: Create 3 consumer threads
