@@ -48,6 +48,7 @@ impl ThreadPool {
         // TODO: Create a job from the closure and send it to a worker
         let job = Box::new(f); //creates a box and stores f (f is closure?)
         let _ = self.sender.send(Message::NewJob(job)); //create message and sent to worker in channel
+            //side note, was getting a note for not have declared as variable(?)
         
     }
 }
@@ -59,8 +60,8 @@ impl Drop for ThreadPool {  //look up how to do this
         for worker in &mut self.workers { //iterate through each worker
             self.sender.send(Message::Terminate).unwrap(); //send message to workers 
         // TODO: Wait for all workers to finish
-            if let Some(thread) = worker.thread.take() {
-                thread.join().unwrap(); //join workers 
+            if let Some(thread) = worker.thread.take() { //checks for handle & get joinhandle out from option
+                thread.join().unwrap(); //wait for worker to be done
             }
        }
     }
@@ -90,7 +91,7 @@ impl Worker {
         });
         
         // TODO: Return the Worker
-        Worker{id, thread: Some(thread)}
+        Worker{id, thread: Some(thread)} //stores joinhandle 
         
     }
 }
@@ -129,7 +130,7 @@ fn main() {
     const ITEM_COUNT: usize = 20;
     
     // TODO: Create a channel for sending numbers
-    let (tx, rx) = mpsc::channel();
+    let (tx, rx) = mpsc::channel(); //create channel
 
     let rx = Arc::new(Mutex::new(rx)); //receiver shared by consumer
     
@@ -137,12 +138,12 @@ fn main() {
     // TODO: Create 2 producer threads
     let mut prod_handle = vec![]; //create vector to insert producers
 
-     for i in 0..2 {
-        let tx_clone = tx.clone();
-        let handle = thread::spawn(move || {
+     for i in 0..2 { //create 2 producers
+        let tx_clone = tx.clone(); //clone transmitter
+        let handle = thread::spawn(move || { //create new thread
             producer(i, tx_clone, ITEM_COUNT);
         });
-        prod_handle.push(handle);
+        prod_handle.push(handle); //push to handle
     }
     
     
@@ -152,23 +153,23 @@ fn main() {
     for i in 1..=con {
         let rx_clone = rx.clone(); //clone receiver to give to consumer
 
-        let handle = thread::spawn(move || {
+        let handle = thread::spawn(move || { //create new thread
             consumer(i, rx_clone);
         });
-        con_handle.push(handle);
+        con_handle.push(handle); //push to handle
     }
     
     
     // TODO: Wait for all threads to finish
-    for handle in prod_handle {
+    for handle in prod_handle { //wait for producer to finish first
         handle.join().unwrap();
     }
 
-    for _ in 0..con {
+    for _ in 0..con { //send termination signal to consumer
         tx.send(TERMINATION_SIGNAL).unwrap();
     }
 
-    for handle in con_handle {
+    for handle in con_handle { //wait for consumer to finish
         handle.join().unwrap();
     }
 
@@ -186,10 +187,10 @@ fn producer(id: usize, tx: mpsc::Sender<i32>, item_count: usize) {
 
     let mut rng = rand::thread_rng();
 
-    for _ in 0..=item_count{
+    for _ in 0..=item_count{ //iterate through every item
         let r = rng.gen_range(0..100); //generate random number
 
-        tx.send(r).unwrap();
+        tx.send(r).unwrap(); //value sent to receving consumer
         println!("producer {} send {}", id, r);
 
     }
@@ -203,14 +204,14 @@ fn consumer(id: usize, rx: Arc<Mutex<mpsc::Receiver<i32>>>) {
     // Break the loop when receiving the termination signal
 
     loop {
-        let received_value = rx.lock().unwrap();
+        let received_value = rx.lock().unwrap(); //lock receiver to get value
 
-        if received_value.recv().unwrap() == TERMINATION_SIGNAL {
-                println!("Consumer {} is exiting", id);
+        if received_value.recv().unwrap() == TERMINATION_SIGNAL { //check for termination value
+                println!("Consumer {} is exiting", id); //break if value equal to signal
                 break;
             }
             else {
-                println!("Consumer {} is continuing process", id);
+                println!("Consumer {} is continuing process", id); //else continue process
             }
     }
 }
