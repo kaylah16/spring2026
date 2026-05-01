@@ -1,5 +1,5 @@
 //assignment3
-/*use std::sync::{mpsc, Arc, Mutex};
+use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 
 // Message to be sent to the workers
@@ -112,9 +112,9 @@ fn main() {
     println!("Main thread waiting for tasks to complete...");
     // ThreadPool will be dropped when it goes out of scope, triggering the cleanup
 }
-*/
 
 
+/*
 //assignment 4
 
 use std::sync::{mpsc, Arc, Mutex};
@@ -215,3 +215,4 @@ fn consumer(id: usize, rx: Arc<Mutex<mpsc::Receiver<i32>>>) {
             }
     }
 }
+    */
